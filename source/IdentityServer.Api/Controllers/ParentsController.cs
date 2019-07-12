@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -17,8 +18,18 @@ namespace IdentityServer.Api.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            User.Claims.FirstOrDefault();
-            return new string[] { "value1", "value2" };
+            string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            switch (id)
+            {
+                case "514":
+                    return new string[] { "Bob's dad", "Bob's mom" };
+
+                case "515":
+                    return new string[] { "Jill's dad", "Jill's mom" };
+
+                default:
+                    return new string[] { "Unknown user" };
+            }
         }
 
         // GET: api/Parents/5
