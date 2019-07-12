@@ -29,7 +29,9 @@ namespace IdentityServer.Identity
                     KeyVaultClient keyVaultClient = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
 
                     SecretBundle secretBundle = await keyVaultClient.GetSecretAsync($"https://{keyVaultName}.vault.azure.net", certName);
-                    return new X509Certificate2(Convert.FromBase64String(secretBundle.Value));
+
+                    // Seems like we need this EphemeralKeySet value, otherwise verifying the JWT will fail at the API side
+                    return new X509Certificate2(Convert.FromBase64String(secretBundle.Value), "", X509KeyStorageFlags.EphemeralKeySet);
                 }
 
                 /* If you have throttling errors see this tutorial https://docs.microsoft.com/azure/key-vault/tutorial-net-create-vault-azure-web-app */
