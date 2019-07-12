@@ -1,4 +1,5 @@
-﻿using IdentityServer4.Models;
+﻿using IdentityServer4;
+using IdentityServer4.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,8 @@ namespace IdentityServer.Identity
                     AllowOfflineAccess = true, // Offline access needed to receive refresh token
                     AllowedScopes = new string[]
                     {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
                         Scopes.ParentsRead
                     },
                     RequireClientSecret = false,

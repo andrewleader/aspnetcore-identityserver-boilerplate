@@ -28,9 +28,11 @@ namespace IdentityServer.Identity
                     Name = "testAPI",
                     DisplayName = "Test API",
                     Description = "Test API surface",
-                    UserClaims = new List<string> {"openid"},
+                    UserClaims = new List<string> {},
                     ApiSecrets = new List<Secret> {new Secret("testApiSecret".Sha256())},
                     Scopes = new List<Scope> {
+                        new Scope(IdentityServer4.IdentityServerConstants.StandardScopes.OpenId),
+                        new Scope(IdentityServer4.IdentityServerConstants.StandardScopes.Profile),
                         new Scope(Scopes.ParentsRead),
                         new Scope(Scopes.ParentsWrite)
                     }

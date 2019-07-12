@@ -34,11 +34,11 @@ namespace IdentityServer.Api
             services.AddAuthentication("Bearer")
                 .AddJwtBearer("Bearer", options =>
                 {
-                    options.Authority = "http://localhost:54988";
+                    options.Authority = "https://identityserverdemo.azurewebsites.net/";
 #if DEBUG
                     options.RequireHttpsMetadata = false;
 #endif
-                    options.Audience = "testApi";
+                    options.Audience = "testAPI";
                 });
         }
 
@@ -55,7 +55,12 @@ namespace IdentityServer.Api
                 app.UseHsts();
             }
 
+#if RELEASE
             app.UseHttpsRedirection();
+#endif
+
+            // IMPORTANT: Order matters. Authentication must be before MVC.
+            app.UseAuthentication();
             app.UseMvc();
         }
     }
