@@ -24,8 +24,6 @@ namespace IdentityServer.Identity
                     AllowOfflineAccess = true, // Offline access needed to receive refresh token
                     AllowedScopes = new string[]
                     {
-                        IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile,
                         Scopes.ParentsRead
                     },
                     RequireClientSecret = false,
